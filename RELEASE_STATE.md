@@ -2,39 +2,59 @@
 
 Обновлено: 2026-11-02
 
+## Статус: READY (conditional)
+
+Код, сборка, артефакты, лицензия и документация готовы. Публикация возможна после ручных проверок
+из списка ниже. Push, тег и GitHub Release **не выполнялись**.
+
 ## Готово
-- Версия 0.1.0, сборка и тесты зелёные (44/44), уязвимых зависимостей нет.
-- Git-репозиторий инициализирован в island/, .gitignore настроен, артефакты сборки не попадают в индекс.
-- Скриншоты очищены от рабочего стола.
-- README, CHANGELOG, SECURITY, CONTRIBUTING, RELEASE_CHECKLIST, RELEASE_NOTES_DRAFT, SECURITY_REVIEW.
-- CI workflow для windows-latest.
-- Release-сборка: см. раздел «Артефакты» в TEST_REPORT.
+- Версия 0.1.0; сборка 0 ошибок/0 предупреждений; тесты 49/49.
+- Уязвимых зависимостей нет (NAudio 2.2.1, MIT).
+- Артефакты собраны, SHA-256 пересчитаны и совпадают с TEST_REPORT.
+- LICENSE: MIT, Copyright (c) 2026 Kain Raine.
+- README (EN) ссылается на LICENSE; docs/INSTALLATION объясняет framework-dependent vs self-contained.
+- docs/: USER_GUIDE, INSTALLATION, TROUBLESHOOTING, DEVELOPMENT, ARCHITECTURE, FAQ, PRIVACY, README.ru.
+- Git: ветка main, 2 коммита, рабочее дерево чистое, remote/tags отсутствуют.
 
-## Документация
-- README (EN), docs/README.md (индекс), USER_GUIDE, INSTALLATION, TROUBLESHOOTING, DEVELOPMENT,
-  ARCHITECTURE (Mermaid), FAQ, PRIVACY, README.ru.md, CONTRIBUTING (EN), SECURITY (EN).
-- Ссылки на изображения проверены, личных данных и секретов нет.
+## Требует подтверждения владельца
+1. **Правообладатель в LICENSE.** Указан псевдоним проекта «Kain Raine» и год 2026. Если юридическое имя
+   или организация иные — заменить строку Copyright до публикации.
+2. **Подпись артефактов** не выполнялась. Решение: подписывать или публиковать неподписанными
+   (SmartScreen будет предупреждать).
 
-## Блокеры перед публикацией
-1. LICENSE отсутствует. Нужно решение владельца; рекомендуется MIT.
-2. Код-подпись не выполнялась; артефакты не подписаны.
-3. Windows-тосты в Action Center не проверены вне песочницы (AUMID/реестр).
-4. WGC-захват не реализован (текущий путь проверен).
-5. Push, тег и GitHub Release не выполнялись — требуется отдельное разрешение.
+## Ручные проверки перед публикацией
+- [ ] Подтвердить владельца в LICENSE.
+- [ ] Запустить self-contained сборку на чистой машине без .NET.
+- [ ] Запустить framework-dependent сборку на машине с .NET 10 Desktop Runtime.
+- [ ] Проверить системные тосты в Action Center (вне песочницы).
+- [ ] Проверить DPI 125/150% и второй монитор.
+- [ ] При желании — подписать артефакты и обновить SHA-256.
 
-## Статус: NOT READY
+## Команды публикации (выполнять вручную, после проверок)
 
-Код, сборка, артефакты и документация готовы. Публикация невозможна до решения двух организационных
-вопросов и проверки двух сценариев:
-1. LICENSE не выбран (юридический блокер).
-2. Подпись артефактов не выполнялась (по решению владельца).
-3. Windows-тосты в Action Center не проверены вне песочницы.
-4. DPI 125/150% не проверены.
+Заменить OWNER/REPO на реальные. Remote ещё не добавлен.
 
-Push, тег и GitHub Release не выполнялись — требуется разрешение.
+~~~powershell
+cd island
 
-## Следующие действия
-1. Выбрать лицензию и добавить LICENSE.
-2. Проверить системные тосты и DPI 125/150% на живой машине.
-3. Создать тег v0.1.0 и GitHub Release после разрешения; приложить артефакты и SHA-256.
-4. По желанию: подписать сборку, добавить WGC отдельной итерацией.
+# 1. Первый push (ветка уже main)
+git remote add origin https://github.com/OWNER/REPO.git
+git push -u origin main
+
+# 2. Тег версии
+git tag -a v0.1.0 -m "Island 0.1.0"
+git push origin v0.1.0
+
+# 3. GitHub Release (нужен авторизованный gh)
+gh release create v0.1.0 --title "Island 0.1.0" --notes-file RELEASE_NOTES_DRAFT.md `
+
+  "release/Island-0.1.0-win-x64-framework.zip#Framework-dependent (requires .NET 10 Desktop Runtime)" `
+
+  "release/Island-0.1.0-win-x64-selfcontained.zip#Self-contained (no runtime required)"
+~~~
+
+Если gh недоступен — создать релиз вручную на GitHub, приложив оба zip и вставив RELEASE_NOTES_DRAFT.md.
+
+## Не выполнялось
+- git push, git tag, gh release create — требуют отдельного разрешения.
+- Изменение истории коммитов — не выполнялось.

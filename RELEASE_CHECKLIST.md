@@ -5,7 +5,7 @@
 - [x] .gitignore исключает bin/obj/publish/_backup/*.zip/settings.json/логи
 - [x] Нет секретов, токенов, приватных URL и абсолютных путей пользователя в исходниках
 - [x] Скриншоты обрезаны до окна приложения (фон рабочего стола и браузер не видны)
-- [ ] LICENSE — отсутствует, требуется решение владельца (рекомендуется MIT)
+- [x] LICENSE — MIT, Copyright (c) 2026 Kain Raine (подтвердить правообладателя)
 - [ ] Начальный коммит и тег v0.1.0 — тег не создаётся без разрешения
 
 ## Сборка
@@ -36,6 +36,8 @@
 - [x] docs/: README, USER_GUIDE, INSTALLATION, TROUBLESHOOTING, DEVELOPMENT, ARCHITECTURE, FAQ, PRIVACY, README.ru
 - [x] Ссылки на изображения проверены (0 битых), секретов и личных путей нет
 - [x] README на английском, русское краткое описание сохранено (docs/README.ru.md)
+- [x] README и INSTALLATION ссылаются на LICENSE, объяснены framework-dependent и self-contained сборки
+- [x] Команды первого push, тега v0.1.0 и GitHub Release подготовлены (RELEASE_STATE.md)
 
 ## Публикация
 - [ ] Push в GitHub — требуется разрешение

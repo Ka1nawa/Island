@@ -86,7 +86,6 @@ and GitHub (update checks). Details: [docs/PRIVACY.md](docs/PRIVACY.md).
 - Screen capture uses `CopyFromScreen`; a Windows.Graphics.Capture implementation is planned.
 - Screen recording, calls and download progress are not shown — there is no reliable public source for them.
 - DPI above 100% has not been tested on hardware (the code accounts for per-monitor DPI).
-- No `LICENSE` file yet — the license choice is up to the project owner.
 
 ## Reporting issues
 
@@ -96,5 +95,4 @@ relevant part of `%APPDATA%\\Island\\error.log` (without calendar URLs or person
 
 ## License
 
-No license file has been added yet. Until the owner chooses one, the project is **not** licensed for
-redistribution or modification. A common choice for this kind of project is MIT.
+Island is released under the **MIT License** — see [LICENSE](LICENSE).

@@ -9,7 +9,17 @@
 | Runtime | .NET 10 Desktop Runtime (framework-dependent build only) |
 | Display | Any; per-monitor DPI is handled by the app |
 
-The self-contained build includes the .NET runtime and needs nothing else.
+## Choosing a build
+
+| | Framework-dependent | Self-contained |
+| --- | --- | --- |
+| Archive size | ~7 MB | ~73 MB |
+| Required runtime | .NET 10 **Desktop** Runtime (x64) | None |
+| Best for | machines that already have .NET 10 | clean machines, portable use |
+| Update size | smaller | larger |
+
+Both archives contain a single `Island.exe` (single-file publish). The self-contained build includes the
+.NET runtime and needs nothing else.
 
 ## Install from a release artifact
 
@@ -67,6 +77,10 @@ the file is verified before the installer is offered.
 2. Exit Island from the tray.
 3. Delete the application folder.
 4. Optionally delete `%APPDATA%\\Island` to remove all settings, notes and caches.
+
+## License
+
+Island is distributed under the **MIT License**. See [LICENSE](../LICENSE) for the full text.
 
 ## Common installation problems
 

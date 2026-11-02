@@ -27,6 +27,18 @@
 - Санитизация имени файла обновления, установка только после проверки SHA-256.
 - Скриншоты очищены от содержимого рабочего стола.
 
+## Artifacts
+
+| File | SHA-256 |
+| --- | --- |
+| Island-0.1.0-win-x64-framework.zip | 34e07103dd2cb3d3d4f16467c41add5cdda4d76963275012f5cf9585fa4ddead |
+| Island-0.1.0-win-x64-selfcontained.zip | ca47b3be39bc4258b71133ecf6b813af452db9cdeb0e3a34abf44ac1c70f4a45 |
+| Island-0.1.0-win-x64-framework.exe | 5a548ccc34867adc1e6dd2c6399fe69b36e9044d028626b0a350979c314e75ad |
+| Island-0.1.0-win-x64-selfcontained.exe | e189f0ca4466f2a9c170c5f3f4dac96bbb824197f20d4a64efd574cb67d45fb0 |
+
+Requirements: Windows 10 2004+ / Windows 11, x64. The framework-dependent build needs the .NET 10 Desktop
+Runtime; the self-contained build needs nothing. Binaries are unsigned.
+
 ## Known Issues
 - Нет действий в системных тостах (кнопки — в кастомном тосте).
 - WGC-захват не реализован.
