@@ -1,0 +1,21 @@
+# build
+bin/
+obj/
+publish/
+TestResults/
+*.user
+*.suo
+.vs/
+
+# local backups and artifacts
+_backup/
+*.zip
+
+# local data / logs (never commit)
+settings.json
+error.log
+error.1.log
+*.log
+
+# release artifacts
+release/

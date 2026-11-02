@@ -1,0 +1,268 @@
+<UserControl x:Class="Island.Views.SettingsSheet"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <UserControl.Resources>
+    <Style x:Key="DockChoice" TargetType="ToggleButton">
+      <Setter Property="Cursor" Value="Hand" />
+      <Setter Property="Focusable" Value="False" />
+      <Setter Property="Margin" Value="0,0,5,5" />
+      <Setter Property="Height" Value="40" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="ToggleButton">
+            <Border x:Name="b" CornerRadius="11" Background="{DynamicResource SurfaceSoft}"
+                    BorderBrush="{DynamicResource BorderSoft}" BorderThickness="1.2">
+              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="b" Property="Background" Value="#16FFFFFF" />
+              </Trigger>
+              <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="b" Property="Background" Value="#242F7DFF" />
+                <Setter TargetName="b" Property="BorderBrush" Value="#CC2F7DFF" />
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <Style x:Key="RowButton" TargetType="Button">
+      <Setter Property="Cursor" Value="Hand" />
+      <Setter Property="Focusable" Value="False" />
+      <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Border x:Name="b" Background="{DynamicResource SurfaceSoft}" CornerRadius="13" Padding="12,0" Height="38">
+              <ContentPresenter />
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="b" Property="Background" Value="#18FFFFFF" />
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+  </UserControl.Resources>
+
+  <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <StackPanel Margin="0,0,6,0">
+      <TextBlock Text="{DynamicResource SettingsTitle}" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,6" />
+
+      <TextBlock Text="{DynamicResource ThemeLabel}" FontSize="10" Foreground="{StaticResource TextTertiary}" />
+      <Border Height="30" Background="{DynamicResource SurfaceSoft}" CornerRadius="9" Padding="3" Margin="0,4,0,0">
+        <UniformGrid Columns="3">
+          <RadioButton x:Name="ThemeDark" Style="{StaticResource Segment}" FontSize="11"
+                       Content="{DynamicResource ThemeDark}" Tag="dark" Checked="Theme_Checked" />
+          <RadioButton x:Name="ThemeLight" Style="{StaticResource Segment}" FontSize="11"
+                       Content="{DynamicResource ThemeLight}" Tag="light" Checked="Theme_Checked" />
+          <RadioButton x:Name="ThemeAuto" Style="{StaticResource Segment}" FontSize="11"
+                       Content="{DynamicResource ThemeAuto}" Tag="auto" Checked="Theme_Checked" />
+        </UniformGrid>
+      </Border>
+
+      <TextBlock Text="{DynamicResource Language}" FontSize="10" Foreground="{StaticResource TextTertiary}" Margin="0,10,0,0" />
+      <Border Height="30" Background="{DynamicResource SurfaceSoft}" CornerRadius="9" Padding="3" Margin="0,4,0,0">
+        <UniformGrid Columns="2">
+          <RadioButton x:Name="LangRu" Style="{StaticResource Segment}" FontSize="11"
+                       Content="{DynamicResource LangRu}" Tag="ru" Checked="Lang_Checked" />
+          <RadioButton x:Name="LangEn" Style="{StaticResource Segment}" FontSize="11"
+                       Content="{DynamicResource LangEn}" Tag="en" Checked="Lang_Checked" />
+        </UniformGrid>
+      </Border>
+
+      <TextBlock Text="{DynamicResource TimeZone}" FontSize="10" Foreground="{StaticResource TextTertiary}" Margin="0,10,0,0" />
+      <ComboBox x:Name="TimeZoneCombo" Style="{StaticResource DarkCombo}" Margin="0,4,0,0" SelectionChanged="TimeZone_Changed">
+        <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding Display}" TextTrimming="CharacterEllipsis" />
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
+
+      <TextBlock Text="{DynamicResource Position}" FontSize="10" Foreground="{StaticResource TextTertiary}" Margin="0,10,0,0" />
+      <UniformGrid Columns="3" Rows="2" Margin="0,4,0,0">
+        <ToggleButton x:Name="DockTopLeft" Style="{StaticResource DockChoice}" Tag="TopLeft" Click="Dock_Click" ToolTip="{DynamicResource TopLeft}">
+          <Grid Width="50" Height="30">
+            <Border CornerRadius="5" Background="{DynamicResource SurfaceHover}" BorderBrush="{DynamicResource BorderSoft}" BorderThickness="1" />
+            <Border Width="14" Height="4.5" CornerRadius="2.2" Background="#F0F0F4" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,5,0,0" />
+          </Grid>
+        </ToggleButton>
+        <ToggleButton x:Name="DockTopCenter" Style="{StaticResource DockChoice}" Tag="TopCenter" Click="Dock_Click" ToolTip="{DynamicResource TopCenter}">
+          <Grid Width="50" Height="30">
+            <Border CornerRadius="5" Background="{DynamicResource SurfaceHover}" BorderBrush="{DynamicResource BorderSoft}" BorderThickness="1" />
+            <Border Width="14" Height="4.5" CornerRadius="2.2" Background="#F0F0F4" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0" />
+          </Grid>
+        </ToggleButton>
+        <ToggleButton x:Name="DockTopRight" Style="{StaticResource DockChoice}" Tag="TopRight" Click="Dock_Click" ToolTip="{DynamicResource TopRight}">
+          <Grid Width="50" Height="30">
+            <Border CornerRadius="5" Background="{DynamicResource SurfaceHover}" BorderBrush="{DynamicResource BorderSoft}" BorderThickness="1" />
+            <Border Width="14" Height="4.5" CornerRadius="2.2" Background="#F0F0F4" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,5,0" />
+          </Grid>
+        </ToggleButton>
+        <ToggleButton x:Name="DockBottomLeft" Style="{StaticResource DockChoice}" Tag="BottomLeft" Click="Dock_Click" ToolTip="{DynamicResource BottomLeft}">
+          <Grid Width="50" Height="30">
+            <Border CornerRadius="5" Background="{DynamicResource SurfaceHover}" BorderBrush="{DynamicResource BorderSoft}" BorderThickness="1" />
+            <Border Width="14" Height="4.5" CornerRadius="2.2" Background="#F0F0F4" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="5,0,0,5" />
+          </Grid>
+        </ToggleButton>
+        <ToggleButton x:Name="DockBottomCenter" Style="{StaticResource DockChoice}" Tag="BottomCenter" Click="Dock_Click" ToolTip="{DynamicResource BottomCenter}">
+          <Grid Width="50" Height="30">
+            <Border CornerRadius="5" Background="{DynamicResource SurfaceHover}" BorderBrush="{DynamicResource BorderSoft}" BorderThickness="1" />
+            <Border Width="14" Height="4.5" CornerRadius="2.2" Background="#F0F0F4" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,5" />
+          </Grid>
+        </ToggleButton>
+        <ToggleButton x:Name="DockBottomRight" Style="{StaticResource DockChoice}" Tag="BottomRight" Click="Dock_Click" ToolTip="{DynamicResource BottomRight}">
+          <Grid Width="50" Height="30">
+            <Border CornerRadius="5" Background="{DynamicResource SurfaceHover}" BorderBrush="{DynamicResource BorderSoft}" BorderThickness="1" />
+            <Border Width="14" Height="4.5" CornerRadius="2.2" Background="#F0F0F4" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,5,5" />
+          </Grid>
+        </ToggleButton>
+      </UniformGrid>
+
+      <TextBlock Text="{DynamicResource Monitor}" FontSize="10" Foreground="{StaticResource TextTertiary}" Margin="0,8,0,0" />
+      <ComboBox x:Name="MonitorCombo" Style="{StaticResource DarkCombo}" Margin="0,4,0,0" SelectionChanged="Monitor_Changed"
+                AutomationProperties.Name="{DynamicResource Monitor}">
+        <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding Display}" TextTrimming="CharacterEllipsis" />
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
+
+      <Border Background="{DynamicResource SurfaceSoft}" CornerRadius="13" Padding="12,8" Margin="0,8,0,0">
+        <Grid>
+          <StackPanel>
+            <TextBlock Text="{DynamicResource AutoStart}" FontSize="12" />
+            <TextBlock Text="{DynamicResource AutoStartHint}" FontSize="9" Foreground="{StaticResource TextTertiary}" Margin="0,1,0,0" />
+          </StackPanel>
+          <CheckBox x:Name="AutoStartSwitch" Style="{StaticResource Switch}" HorizontalAlignment="Right" VerticalAlignment="Center" IsChecked="{Binding Settings.AutoStart, Mode=TwoWay}" />
+        </Grid>
+      </Border>
+
+      <Grid Margin="0,10,0,0">
+        <TextBlock Text="{DynamicResource Density}" FontSize="10" Foreground="{StaticResource TextTertiary}" />
+        <TextBlock Text="{Binding Settings.DensityText}" FontSize="10" Foreground="{StaticResource TextTertiary}" HorizontalAlignment="Right" />
+      </Grid>
+      <Slider Style="{StaticResource ThinSlider}" Minimum="30" Maximum="100" Margin="0,4,0,0"
+              Value="{Binding Settings.Density, Mode=TwoWay}" />
+
+      <Border Background="{DynamicResource SurfaceSoft}" CornerRadius="13" Padding="12,6" Margin="0,8,0,0">
+        <Grid>
+          <StackPanel>
+            <TextBlock Text="{DynamicResource Visualizer}" FontSize="12" />
+            <TextBlock Text="{DynamicResource VisualizerHint}" FontSize="9" Foreground="{StaticResource TextTertiary}" Margin="0,1,0,0" />
+          </StackPanel>
+          <CheckBox Style="{StaticResource Switch}" HorizontalAlignment="Right" VerticalAlignment="Center"
+                    IsChecked="{Binding Settings.VisualizerEnabled, Mode=TwoWay}" />
+        </Grid>
+      </Border>
+
+      <Border Background="{DynamicResource SurfaceSoft}" CornerRadius="13" Padding="12,6" Margin="0,8,0,0">
+        <Grid>
+          <StackPanel>
+            <TextBlock Text="{DynamicResource LiveGlass}" FontSize="12" />
+            <TextBlock Text="{DynamicResource LiveGlassHint}" FontSize="9" Foreground="{StaticResource TextTertiary}"
+                       Margin="0,1,0,0" TextWrapping="Wrap" MaxWidth="270" />
+          </StackPanel>
+          <CheckBox Style="{StaticResource Switch}" HorizontalAlignment="Right" VerticalAlignment="Center"
+                    IsChecked="{Binding Settings.LiveGlass, Mode=TwoWay}" />
+        </Grid>
+      </Border>
+
+      <Border Background="{DynamicResource SurfaceSoft}" CornerRadius="13" Padding="12,6" Margin="0,8,0,0">
+        <Grid>
+          <StackPanel>
+            <TextBlock Text="{DynamicResource ReduceMotion}" FontSize="12" />
+            <TextBlock Text="{DynamicResource ReduceMotionHint}" FontSize="9" Foreground="{StaticResource TextTertiary}"
+                       Margin="0,1,0,0" TextWrapping="Wrap" MaxWidth="270" />
+          </StackPanel>
+          <CheckBox Style="{StaticResource Switch}" HorizontalAlignment="Right" VerticalAlignment="Center"
+                    IsChecked="{Binding Settings.ReduceMotion, Mode=TwoWay}" />
+        </Grid>
+      </Border>
+
+      <Border Background="{DynamicResource SurfaceSoft}" CornerRadius="13" Padding="12,6" Margin="0,8,0,0">
+        <Grid>
+          <StackPanel>
+            <TextBlock Text="{DynamicResource AccentArt}" FontSize="12" />
+            <TextBlock Text="{DynamicResource AccentHint}" FontSize="9" Foreground="{StaticResource TextTertiary}"
+                       Margin="0,1,0,0" TextWrapping="Wrap" MaxWidth="270" />
+          </StackPanel>
+          <CheckBox Style="{StaticResource Switch}" HorizontalAlignment="Right" VerticalAlignment="Center"
+                    IsChecked="{Binding Settings.AccentFromArtwork, Mode=TwoWay}" />
+        </Grid>
+      </Border>
+
+      <Grid Margin="0,10,0,0">
+        <TextBlock Text="{DynamicResource AnimSpeed}" FontSize="10" Foreground="{StaticResource TextTertiary}" />
+        <TextBlock Text="{Binding Settings.AnimationSpeedText}" FontSize="10" Foreground="{StaticResource TextTertiary}"
+                   HorizontalAlignment="Right" />
+      </Grid>
+      <Slider Style="{StaticResource ThinSlider}" Minimum="0.5" Maximum="2" SmallChange="0.25" LargeChange="0.25"
+              Margin="0,4,0,0" Value="{Binding Settings.AnimationSpeed, Mode=TwoWay}" />
+
+      <TextBlock Text="{DynamicResource NotifSound}" FontSize="10" Foreground="{StaticResource TextTertiary}" Margin="0,10,0,0" />
+      <ComboBox x:Name="SoundCombo" Style="{StaticResource DarkCombo}" Margin="0,4,0,0" SelectionChanged="Sound_Changed">
+        <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding Display}" TextTrimming="CharacterEllipsis" />
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
+
+      <Border Background="{DynamicResource SurfaceSoft}" CornerRadius="13" Padding="12,8" Margin="0,8,0,0">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+          </Grid.RowDefinitions>
+          <StackPanel>
+            <TextBlock Text="{DynamicResource QuietHours}" FontSize="12" />
+            <TextBlock Text="{DynamicResource QuietHoursHint}" FontSize="9" Foreground="{StaticResource TextTertiary}"
+                       Margin="0,1,0,0" TextWrapping="Wrap" MaxWidth="250" />
+          </StackPanel>
+          <CheckBox Style="{StaticResource Switch}" HorizontalAlignment="Right" VerticalAlignment="Top"
+                    IsChecked="{Binding Settings.QuietHours, Mode=TwoWay}" />
+          <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,6,0,0" VerticalAlignment="Center">
+            <TextBlock Text="{DynamicResource QuietFrom}" FontSize="10" Foreground="{StaticResource TextSecondary}"
+                       VerticalAlignment="Center" Margin="0,0,6,0" />
+            <TextBox Style="{StaticResource FieldBox}" Width="58" Height="26" FontSize="11"
+                     Text="{Binding Settings.QuietFrom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="{DynamicResource QuietTo}" FontSize="10" Foreground="{StaticResource TextSecondary}"
+                       VerticalAlignment="Center" Margin="10,0,6,0" />
+            <TextBox Style="{StaticResource FieldBox}" Width="58" Height="26" FontSize="11"
+                     Text="{Binding Settings.QuietTo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+          </StackPanel>
+        </Grid>
+      </Border>
+
+      <TextBlock Text="{DynamicResource CalendarUrl}" FontSize="10" Foreground="{StaticResource TextTertiary}" Margin="0,10,0,0" />
+      <TextBox Style="{StaticResource FieldBox}" Height="28" FontSize="11" Margin="0,4,0,0"
+               Text="{Binding Settings.CalendarUrl, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+               ToolTip="{DynamicResource CalendarHint}" />
+
+      <TextBlock Text="{DynamicResource NotesSync}" FontSize="10" Foreground="{StaticResource TextTertiary}" Margin="0,10,0,0" />
+      <TextBox Style="{StaticResource FieldBox}" Height="28" FontSize="11" Margin="0,4,0,0"
+               Text="{Binding Settings.NotesSyncFolder, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
+               ToolTip="{DynamicResource NotesSyncHint}" />
+
+      <TextBlock Text="{DynamicResource UpdateRepo}" FontSize="10" Foreground="{StaticResource TextTertiary}" Margin="0,10,0,0" />
+      <TextBox Style="{StaticResource FieldBox}" Height="28" FontSize="11" Margin="0,4,0,0"
+               Text="{Binding Settings.UpdateRepo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+               ToolTip="{DynamicResource UpdateRepoHint}" />
+
+      <Button Style="{StaticResource RowButton}" Margin="0,10,0,8" Click="About_Click" AutomationProperties.Name="{DynamicResource AboutRow}">
+        <Grid>
+          <TextBlock Text="{DynamicResource AboutRow}" FontSize="12" VerticalAlignment="Center" />
+          <TextBlock Text="&#xE72A;" Style="{StaticResource Glyph}" FontSize="10" Foreground="{DynamicResource TextTertiary}"
+                     HorizontalAlignment="Right" VerticalAlignment="Center" />
+        </Grid>
+      </Button>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

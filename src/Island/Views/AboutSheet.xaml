@@ -1,0 +1,81 @@
+<UserControl x:Class="Island.Views.AboutSheet"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <UserControl.Resources>
+    <Style x:Key="LinkButton" TargetType="Button">
+      <Setter Property="Foreground" Value="#4FA8FF" />
+      <Setter Property="FontSize" Value="10" />
+      <Setter Property="Cursor" Value="Hand" />
+      <Setter Property="Focusable" Value="False" />
+      <Setter Property="Padding" Value="0" />
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Border Background="Transparent" Padding="0,2">
+              <ContentPresenter />
+            </Border>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+  </UserControl.Resources>
+
+  <ScrollViewer Style="{StaticResource CleanScroll}">
+    <StackPanel>
+      <TextBlock Text="{DynamicResource AboutTitle}" FontSize="16" FontWeight="SemiBold" />
+      <TextBlock x:Name="VersionText" FontSize="9.5" Foreground="{StaticResource TextTertiary}" Margin="0,3,0,12" />
+
+      <Border Background="{DynamicResource SurfaceSoft}" CornerRadius="14" Padding="12,10" BorderBrush="{DynamicResource BorderSoft}" BorderThickness="1">
+        <StackPanel>
+          <TextBlock Text="{DynamicResource AboutWeatherTitle}" FontSize="11.5" FontWeight="SemiBold" />
+          <TextBlock Text="{DynamicResource AboutWeatherText}" FontSize="10" Foreground="{DynamicResource TextSecondary}"
+                     TextWrapping="Wrap" Margin="0,4,0,0" LineHeight="15" />
+          <Button Style="{StaticResource LinkButton}" Content="{DynamicResource OpenSite}" HorizontalAlignment="Left"
+                  Margin="0,6,0,0" Click="OpenSite_Click" />
+        </StackPanel>
+      </Border>
+
+      <Border Background="{DynamicResource SurfaceSoft}" CornerRadius="14" Padding="12,10" BorderBrush="{DynamicResource BorderSoft}" BorderThickness="1" Margin="0,8,0,0">
+        <StackPanel>
+          <TextBlock Text="{DynamicResource AboutMediaTitle}" FontSize="11.5" FontWeight="SemiBold" />
+          <TextBlock Text="{DynamicResource AboutMediaText}" FontSize="10" Foreground="{DynamicResource TextSecondary}"
+                     TextWrapping="Wrap" Margin="0,4,0,0" LineHeight="15" />
+        </StackPanel>
+      </Border>
+
+      <Border Background="{DynamicResource SurfaceSoft}" CornerRadius="14" Padding="12,10"
+              BorderBrush="{DynamicResource BorderSoft}" BorderThickness="1" Margin="0,8,0,0">
+        <StackPanel>
+          <TextBlock Text="{DynamicResource AboutCalendarTitle}" FontSize="11.5" FontWeight="SemiBold" />
+          <TextBlock Text="{DynamicResource AboutCalendarText}" FontSize="10" Foreground="{DynamicResource TextSecondary}"
+                     TextWrapping="Wrap" Margin="0,4,0,0" LineHeight="15" />
+        </StackPanel>
+      </Border>
+
+      <Border Background="{DynamicResource SurfaceSoft}" CornerRadius="14" Padding="12,10"
+              BorderBrush="{DynamicResource BorderSoft}" BorderThickness="1" Margin="0,8,0,0">
+        <StackPanel>
+          <TextBlock Text="{DynamicResource AboutSystemTitle}" FontSize="11.5" FontWeight="SemiBold" />
+          <TextBlock Text="{DynamicResource AboutSystemText}" FontSize="10" Foreground="{DynamicResource TextSecondary}"
+                     TextWrapping="Wrap" Margin="0,4,0,0" LineHeight="15" />
+        </StackPanel>
+      </Border>
+
+      <Border Background="{DynamicResource SurfaceSoft}" CornerRadius="14" Padding="12,10"
+              BorderBrush="{DynamicResource BorderSoft}" BorderThickness="1" Margin="0,8,0,0">
+        <StackPanel>
+          <TextBlock Text="{DynamicResource AboutPrivacyTitle}" FontSize="11.5" FontWeight="SemiBold" />
+          <TextBlock Text="{DynamicResource AboutPrivacyText}" FontSize="10" Foreground="{DynamicResource TextSecondary}"
+                     TextWrapping="Wrap" Margin="0,4,0,0" LineHeight="15" />
+        </StackPanel>
+      </Border>
+
+      <TextBlock Text="{DynamicResource AboutCredits}" FontSize="11" FontWeight="SemiBold"
+                 Foreground="{DynamicResource TextPrimary}" HorizontalAlignment="Center" Margin="0,18,0,0" />
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,4,0,0">
+        <TextBlock Text="&#x2665;" FontSize="10" Foreground="#FF6B9A" />
+        <TextBlock Text="Kain Raine" FontSize="10" Foreground="{DynamicResource TextTertiary}" Margin="5,0,0,0" />
+      </StackPanel>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>
