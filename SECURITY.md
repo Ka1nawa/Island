@@ -3,25 +3,33 @@
 ## Supported versions
 
 | Version | Supported |
-| ------- | --------- |
-| 0.1.x   | yes       |
+| --- | --- |
+| 0.1.x | yes |
 
 ## Reporting a vulnerability
 
-Пожалуйста, не создавайте публичный issue для уязвимостей. Используйте GitHub Security Advisories
-(«Report a vulnerability») в этом репозитории. Укажите версию, шаги воспроизведения и ожидаемое поведение.
+Please **do not open a public issue**. Use GitHub Security Advisories ("Report a vulnerability") for this
+repository. Include:
 
-Мы подтвердим получение и сообщим о плане исправления. Публичное раскрытие — после выхода исправления.
+- Island version and Windows build;
+- steps to reproduce;
+- expected and actual behaviour;
+- a minimal proof of concept if possible (no live secrets).
 
-## Что считается уязвимостью
+Do not include calendar URLs, tokens or personal files. We will acknowledge the report and coordinate a fix;
+no response-time guarantee is made.
 
-- выполнение кода/команд из внешних данных (ICS, релизы GitHub, ответы API);
-- обход проверки SHA-256 при обновлении;
-- утечка токенов/ссылок календаря в логи;
-- запись файлов за пределы каталога данных или временного каталога.
+## What counts as a vulnerability
 
-## Практики проекта
+- code or command execution from external data (ICS, GitHub releases, API responses);
+- bypassing the SHA-256 check during update;
+- leaking tokens or calendar URLs into logs;
+- writing files outside the data directory or the temporary directory.
 
-- Секреты не хранятся в репозитории; данные пользователя — в %APPDATA%\Island.
-- Обновления скачиваются только по HTTPS, с проверкой SHA-256 и подтверждением пользователя.
-- Логи не содержат содержимого календаря и токенов.
+## Project practices
+
+- No secrets are stored in the repository. User data lives in `%APPDATA%\\Island`.
+- Updates are downloaded over HTTPS, verified with SHA-256 from the release notes and installed only after
+  explicit confirmation.
+- Logs contain error messages and app paths, not calendar content or credentials.
+- Release binaries are currently unsigned; verify the published SHA-256 before running them.

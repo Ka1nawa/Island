@@ -107,10 +107,8 @@ public static class UpdateService
     {
         if (string.IsNullOrWhiteSpace(expectedSha)) return (false, "", "no-hash");
 
-        var safeName = Path.GetFileName(asset.Name);
-        if (string.IsNullOrWhiteSpace(safeName)) return (false, "", "bad-name");
-
-        destination = Path.Combine(Path.GetDirectoryName(destination) ?? Path.GetTempPath(), safeName);
+        destination = ResolveDownloadPath(destination, asset.Name);
+        if (destination.Length == 0) return (false, "", "bad-name");
 
         try
         {
@@ -138,6 +136,18 @@ public static class UpdateService
         {
             return (false, "", exception.Message);
         }
+    }
+
+    /// <summary>Keeps downloads inside the intended directory, whatever the asset name contains.</summary>
+    public static string ResolveDownloadPath(string destination, string? assetName)
+    {
+        var safeName = Path.GetFileName(assetName ?? "");
+        if (string.IsNullOrWhiteSpace(safeName) || safeName is "." or "..") return "";
+
+        var directory = Path.GetDirectoryName(destination);
+        if (string.IsNullOrWhiteSpace(directory)) directory = Path.GetTempPath();
+
+        return Path.Combine(directory, safeName);
     }
 
     public static string ComputeSha256(string path)

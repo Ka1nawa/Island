@@ -1,208 +1,100 @@
-# Островок 0.1.0
+# Island
 
-Динамический островок для Windows 11: пилюля у края экрана, раскрывается при наведении,
-живое стекло с реальным содержимым окон, музыка, погода, заметки и напоминания,
-быстрые действия с клавиатуры.
+**A dynamic island for Windows 11.** A pill at the edge of your screen that expands on hover: live blurred glass,
+the current track, weather, notes, reminders, your calendar and quick actions — without a window in your taskbar.
 
-![Свёрнутый островок](shots/final_collapsed.png)
+Island is a lightweight WPF desktop widget for people who want their daily context one hover away.
 
-## Что умеет
+![Collapsed island](shots/final_collapsed.png)
 
-**Пилюля и окно**
-- обложка, трек и эквалайзер, когда играет музыка; часы и дата, когда тихо;
-- погода справа, клик по температуре открывает вкладку «Погода»;
-- раскрывается при наведении, сворачивается через 0,75 с;
-- **не перекрывает панель задач** (учитывается рабочая область, автоскрытие, DPI);
-- **выбор монитора**: основной, под курсором или конкретный; переключение на лету;
-  реакция на смену разрешения, DPI и конфигурации мониторов.
+## Features
 
-**Живое стекло**
-- размывает реальное содержимое окон за панелью (захват экрана + box blur);
-- островок исключён из захвата через `WDA_EXCLUDEFROMCAPTURE`, поэтому не размывает сам себя;
-- при выключении настройки, на батарее или при ошибке захвата — fallback на обои;
-- 14 fps только в раскрытом состоянии; в свёрнутом — почти ноль CPU.
+- **Live glass** — the panel blurs the real desktop content behind it; falls back to the wallpaper when capture is unavailable.
+- **Multi-monitor aware** — primary display, display under the cursor or a specific monitor; never overlaps the taskbar (including auto-hide).
+- **Quick actions** — `Ctrl+Alt+Space` opens a command bar: type a note, a reminder ("in 20 minutes", "on Wednesday at 15:00") or a timer ("timer 25").
+- **Reminders in natural language** (Russian and English), with presets and a preview of the parsed schedule.
+- **Windows notifications** — custom toast with 5/10/30-minute snooze; quiet hours and Focus Assist are respected.
+- **Calendar (ICS)** — upcoming meeting shown in the header and a toast 15 minutes before it.
+- **Weather** — current conditions, hourly and 5-day forecast, precipitation, wind/storm warnings, multiple cities.
+- **Notes** — checklists, markdown preview, export/import, folder sync, autosave and desktop sticky notes.
+- **Music** — Windows media sessions (SMTC), lyrics from LRCLIB, output device switching and volume presets.
+- **Themes** — dark, light or system; accent colour from album art; animation speed and reduce motion.
+- **System tab** — CPU, GPU and RAM usage from Windows performance counters.
+- **Tray and autostart**, plus a GitHub update check with SHA-256 verification.
 
-![Живое стекло](shots/b_render.png)
+![Media page](shots/final_media.png)
+![Weather page](shots/final_weather.png)
+![Light theme](shots/m_light_settings.png)
 
-**Таймер**
-- «таймер 25» / «25 мин» / `/timer 25` в быстрых действиях;
-- обратный отсчёт в пилюле, отмена кликом, тост по завершении.
+## Status
 
-![Таймер](shots/d_timer.png)
+- Version **0.1.0** (pre-1.0). The feature set is complete for a first public release.
+- Platform: **Windows 10 2004+ / Windows 11, x64**.
+- Built with **.NET 10** and **WPF**; single runtime dependency: **NAudio 2.2.1** (MIT).
+- The release binaries are **not code-signed**; Windows SmartScreen may warn on first launch.
 
-**Быстрые действия**
-- глобальный **Ctrl+Alt+Space** открывает командную строку;
-- Enter: текст с расписанием становится напоминанием, иначе — заметкой;
-- пункт «Быстрые действия» в меню.
+## Install
 
-![Быстрые действия](shots/c_command.png)
+1. Download `Island-0.1.0-win-x64-selfcontained.zip` (no runtime required) or
+   `Island-0.1.0-win-x64-framework.zip` (requires the .NET 10 Desktop Runtime) from the release page.
+2. Extract the archive and run `Island.exe`.
+3. Hover the pill to expand it. Use the tray icon to open settings, enable autostart or exit.
 
-**Напоминания на естественном языке**
-- «через 20 минут», «через 2 часа», «каждый час», «каждый день в 9:30»,
-  «в среду в 15:00», «завтра в 10», «15:45», «по будням»;
-- английский: «in 20 minutes», «every monday at 9», «daily at 18:00»;
-- предпросмотр распознанного расписания до сохранения;
-- пресеты «Вода», «Разминка», «Duolingo» (заполняют редактор, можно менять).
+Detailed steps: [docs/INSTALLATION.md](docs/INSTALLATION.md).
 
-![Редактор напоминания](shots/f_editor.png)
+## Build from source
 
-**Уведомления**
-- тост с кнопками «5 / 10 / 30» минут и «Готово», без кражи фокуса;
-- **тихие часы** (интервал, в т.ч. через полночь) и учёт **Focus Assist / Не беспокоить**;
-- защита от повторных срабатываний после перезапуска.
-
-![Уведомление](shots/f_toast5.png)
-
-**Календарь** (ICS)
-- ссылка на календарь в настройках (webcal:// или https://), кэш на случай офлайна;
-- за 15 минут — тост «Через N мин · Событие» и строка в шапке;
-- повторы, исключения (EXDATE) и отмены (CANCELLED) учитываются.
-
-![Календарь](shots/g_calendar_toast.png)
-
-**Погода** (Open-Meteo)
-- текущая погода, «ощущается как», ветер, влажность, макс/мин;
-- почасовой прогноз на 8 часов;
-- **5-дневный прогноз** с вероятностью осадков;
-- **предупреждения**: гроза, сильный ветер, ливень;
-- **несколько городов**: ‹ › в шапке, добавление через поиск, список сохраняется;
-- кэш на случай отсутствия сети, время обновления.
-
-![Погода](shots/e_weather3.png)
-
-**Система**
-- вкладка с загрузкой CPU, GPU и RAM (реальные счётчики Windows);
-- обновление раз в секунду, только когда вкладка открыта.
-
-![Система](shots/n_system.png)
-
-**Темы**
-- **тёмная, светлая и системная** тема: переключение в настройках, применяется сразу;
-- **акцент из обложки** и **скорость анимаций** 0.5–2×, режим «уменьшить движение».
-
-![Светлая тема](shots/m_light_settings.png)
-![Погода в светлой теме](shots/m_light_weather.png)
-
-**Темы и движение**
-- **акцент из обложки**: стекло и эквалайзер подкрашиваются доминирующим цветом трека;
-- **скорость анимаций** 0.5–2× и режим «уменьшить движение».
-
-![Акцент](shots/l_accent3.png)
-
-**Устройства вывода**
-- список активных устройств и переключение одним выбором (реальный `IPolicyConfig`).
-
-![Устройства вывода](shots/k_devices.png)
-
-**Пресеты громкости**
-- «Игра» и «Работа»: сохраняют мастер-громкость и уровни приложений, применяются одним кликом.
-
-![Пресеты громкости](shots/j_sound.png)
-
-**Текст песни**
-- кнопка «Текст» на странице музыки: текущая и следующая строка, синхронизация с позицией;
-- источник — LRCLIB (бесплатно, без ключа); если текста нет — честное «Нет текста»;
-- для треков без синхронизации показывается пометка «Без синхронизации».
-
-![Текст песни](shots/i_lyrics.png)
-
-**Музыка** (SMTC) и **Звук** (Core Audio) — как раньше:
-обложка, управление, визуализатор, микшер приложений.
-
-**Настройки**
-- язык RU/EN на лету;
-- часовой пояс;
-- прикрепление к шести позициям;
-- монитор;
-- плотность фона;
-- живое стекло;
-- визуализатор;
-- тихие часы;
-- звук уведомлений;
-- автозапуск;
-- уменьшить движение;
-- репозиторий обновлений.
-
-![Настройки — верх](shots/h_set_top.png)
-![Настройки — низ](shots/h_set_bottom.png)
-
-**Трей и автозапуск**
-- открыть, быстрые действия, настройки, о приложении, автозапуск, выход;
-- автозапуск пишется в `HKCU\Software\Microsoft\Windows\CurrentVersion\Run`.
-
-**О приложении**
-- версия 0.0.1 (dev), открытый исходный код, источники данных.
-
-![О приложении](shots/h_about.png)
-
-## Управление
-
-| Действие | Что делает |
-| --- | --- |
-| навести на пилюлю | раскрыть |
-| увести курсор | свернуть через 0,75 с |
-| Ctrl+Alt+Space | быстрые действия / свернуть |
-| клик по температуре | вкладка «Погода» |
-| Esc / «⌃» | свернуть или закрыть настройки/редактор |
-| «⚙» | настройки |
-| «⋯» | меню: быстрые действия, настройки, о приложении, обновления, погода, свернуть, выход |
-
-## Запуск
-
-`Island.cmd` или:
+Requirements: Windows 10 2004+ / 11, .NET SDK 10.0.
 
 ```powershell
-.\run.ps1
+git clone <repository-url>
+cd island
+dotnet build src/Island/Island.csproj
+.\Island.cmd
 ```
 
-Нужен .NET 10 SDK. Окно всегда поверх, не в панели задач и Alt-Tab, прозрачные области
-не перехватывают клики.
-
-## Данные
-
-- `%APPDATA%\Island\settings.json` — все настройки, заметки и напоминания;
-- `ISLAND_DATA_DIR` — переопределить каталог (портативный режим/тесты);
-- `%APPDATA%\Island\error.log` — ошибки, включая сбои сохранения настроек.
-
-## Тесты
+Test suite:
 
 ```powershell
-dotnet run --project island/tests/ParserTests/ParserTests.csproj
+dotnet run --project tests/ParserTests/ParserTests.csproj
 ```
 
-21 проверка: парсер расписаний (RU/EN), очистка заголовка, тихие часы.
+## Documentation
 
-## Как сделано
+- [Documentation index](docs/README.md)
+- [User guide](docs/USER_GUIDE.md)
+- [Installation](docs/INSTALLATION.md)
+- [Troubleshooting](docs/TROUBLESHOOTING.md)
+- [FAQ](docs/FAQ.md)
+- [Privacy](docs/PRIVACY.md)
+- [Architecture](docs/ARCHITECTURE.md)
+- [Development](docs/DEVELOPMENT.md)
+- [Security policy](SECURITY.md)
+- [Contributing](CONTRIBUTING.md)
+- [Changelog](CHANGELOG.md)
+- [Release notes draft](RELEASE_NOTES_DRAFT.md)
 
-- **WPF / .NET 10**, без сторонних UI-библиотек.
-- Окно фиксированного размера, per-pixel прозрачность, анимация одним циклом `CompositionTarget.Rendering`.
-- **Позиционирование** — `SetWindowPos` в физических пикселях по `GetMonitorInfo`/`GetDpiForMonitor`;
-  рабочая область вычитает полосу панели задач даже при автоскрытии (`SHAppBarMessage`).
-- **Живое стекло** — `Graphics.CopyFromScreen` + downsample 1/4 + box blur; окно исключено
-  из захвата `SetWindowDisplayAffinity(WDA_EXCLUDEFROMCAPTURE)`.
-- **Музыка** — WinRT SMTC. **Звук** — NAudio/Core Audio. **Визуализатор** — WASAPI loopback + FFT.
-- **Погода** — Open-Meteo. **Время** — TimeZoneInfo.
-- **Хоткей** — `RegisterHotKey`. **Уведомления** — окно без активации, `SHQueryUserNotificationState`.
-- **Локализация** — два ResourceDictionary и DynamicResource.
-- **Трей** — WinForms NotifyIcon.
+## Privacy
 
-```
-island/
-  src/Island/
-    MainWindow.xaml(.cs)      пилюля, стекло, вкладки, меню, хоткей
-    Views/                    Музыка, Звук, Погода, Планы, Настройки, О приложении, Быстрые действия
-    ViewModels/               состояние, заметки/напоминания, настройки
-    Services/                 медиа, звук, погода, стекло (обои и живое), спектр,
-                              напоминания, парсер времени, уведомления, энергия, обновления
-  tests/ParserTests/          тесты парсера и тихих часов
-```
+Island has **no telemetry and no analytics**. Data lives in `%APPDATA%\\Island` and can be deleted at any
+time. Network access is limited to: Open-Meteo (weather and geocoding), LRCLIB (lyrics), your own ICS calendar URL,
+and GitHub (update checks). Details: [docs/PRIVACY.md](docs/PRIVACY.md).
 
-## Ограничения и что дальше
+## Known limitations
 
-- живое стекло не показывает DRM-контент (чёрный) и скрывает островок из скриншотов;
-- календарь работает только через ICS (OAuth Outlook/Google и RECURRENCE-ID-переопределения — в планах);
-- обновление скачивается только при наличии `sha256` в описании релиза и после подтверждения;
-- светлое стекло пока не сделано: нужен вынос цветов в theme-словари и проверка контраста;
-- пока нет: закрепления заметок на рабочем столе,
-  5-дневного прогноза и нескольких городов, чек-листов/markdown/синхронизации заметок,
-  светлой темы и акцента из обложки — см. ROADMAP.md и NEXT_ACTIONS.md.
+- Windows toast **actions** are not implemented; action buttons live in Island's own toast window.
+- Screen capture uses `CopyFromScreen`; a Windows.Graphics.Capture implementation is planned.
+- Screen recording, calls and download progress are not shown — there is no reliable public source for them.
+- DPI above 100% has not been tested on hardware (the code accounts for per-monitor DPI).
+- No `LICENSE` file yet — the license choice is up to the project owner.
+
+## Reporting issues
+
+Use GitHub Issues for bugs and feature requests. For security issues, follow [SECURITY.md](SECURITY.md)
+(do not open a public issue). Include the Island version, Windows build, monitor/DPI configuration and the
+relevant part of `%APPDATA%\\Island\\error.log` (without calendar URLs or personal data).
+
+## License
+
+No license file has been added yet. Until the owner chooses one, the project is **not** licensed for
+redistribution or modification. A common choice for this kind of project is MIT.

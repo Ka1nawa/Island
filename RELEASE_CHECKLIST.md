@@ -14,6 +14,7 @@
 - [x] dotnet list package --vulnerable --include-transitive — уязвимых пакетов нет
 - [x] Версия 0.1.0 в csproj
 - [x] Release-сборка: framework-dependent и self-contained, SHA-256 в TEST_REPORT
+- [x] Целевые тесты обновлятора (traversal, подозрительные имена, пустое имя) — 49/49 PASS
 
 ## Приложение
 - [x] Холодный запуск, раскрытие/сворачивание
@@ -32,6 +33,9 @@
 - [x] RELEASE_NOTES_DRAFT.md
 - [x] SECURITY_REVIEW.md, RELEASE_STATE.md
 - [x] CI workflow (.github/workflows/ci.yml)
+- [x] docs/: README, USER_GUIDE, INSTALLATION, TROUBLESHOOTING, DEVELOPMENT, ARCHITECTURE, FAQ, PRIVACY, README.ru
+- [x] Ссылки на изображения проверены (0 битых), секретов и личных путей нет
+- [x] README на английском, русское краткое описание сохранено (docs/README.ru.md)
 
 ## Публикация
 - [ ] Push в GitHub — требуется разрешение

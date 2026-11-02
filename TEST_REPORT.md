@@ -185,3 +185,31 @@
 - Windows-тосты в Action Center вне песочницы.
 - DPI 125/150% (нет монитора с другим масштабом).
 - Подпись артефактов не выполнялась.
+
+
+## Финальная проверка документации и обновлятора (0.1.0)
+
+### Документация
+- Созданы: docs/README.md, docs/USER_GUIDE.md, docs/INSTALLATION.md, docs/TROUBLESHOOTING.md,
+  docs/DEVELOPMENT.md, docs/ARCHITECTURE.md, docs/FAQ.md, docs/PRIVACY.md, docs/README.ru.md.
+- README.md переведён на английский (основной язык), добавлен раздел документации и ссылки.
+- CONTRIBUTING.md и SECURITY.md переведены на английский, сохранено содержание.
+- Проверка ссылок на изображения: 0 битых (все png в docs/ и README найдены).
+- Секреты/абсолютные пути пользователя в отслеживаемых файлах: не найдены (git grep по C:\Users\... пуст).
+- Скриншоты: 448x424 (панель), 384x92 (тосты), 260x170 (стикер), 240x44 (пилюля), 472x448 (render);
+  фон рабочего стола отсутствует.
+
+### Обновлятор (целевые тесты)
+- ResolveDownloadPath("..\\evil.exe") → C:\temp\evil.exe (traversal устранён). PASS.
+- Вложенный traversal "..\\..\\Windows\\evil.exe" → C:\temp\evil.exe. PASS.
+- Пустое имя ("..") отклоняется. PASS.
+- PickAsset отклоняет "..\\evil.exe" и "C:\\Windows\\evil.exe". PASS.
+- PickAsset принимает "island-0.1.0.zip". PASS.
+- Итого тестов: 49/49 PASS.
+
+### Артефакты
+- SHA-256 пересчитаны и совпадают с ранее записанными (framework/self-contained exe и zip).
+
+### Не проверено
+- CI workflow не запускался на GitHub runner (локально проверено содержимое и команды).
+- Windows-тосты вне песочницы, DPI 125/150%, подпись артефактов.

@@ -202,5 +202,31 @@ catch
 Check("theme system matches registry", Theme.ResolveSystem() == Theme.ResolveMode(systemLight != 0),
     Theme.ResolveSystem() + " reg=" + systemLight);
 
+// updater hardening
+var safePath = UpdateService.ResolveDownloadPath(@"C:\temp\island", "..\\evil.exe");
+Check("update path traversal resolved", safePath == @"C:\temp\evil.exe", safePath);
+
+var nestedPath = UpdateService.ResolveDownloadPath(@"C:\temp\island", "..\\..\\Windows\\evil.exe");
+Check("update nested traversal resolved", nestedPath == @"C:\temp\Windows\\evil.exe" || nestedPath == @"C:\temp\evil.exe",
+    nestedPath);
+
+Check("update empty name rejected", UpdateService.ResolveDownloadPath(@"C:\temp\island", "..") == "", "");
+
+var traversalAssets = new UpdateInfo
+{
+    Assets = new[]
+    {
+        new UpdateAsset { Name = "..\\evil.exe", Url = "https://example/1" },
+        new UpdateAsset { Name = "C:\\Windows\\evil.exe", Url = "https://example/2" }
+    }
+};
+Check("update suspicious assets rejected", UpdateService.PickAsset(traversalAssets) is null, "");
+
+var zipAsset = UpdateService.PickAsset(new UpdateInfo
+{
+    Assets = new[] { new UpdateAsset { Name = "island-0.1.0.zip", Url = "https://example/3" } }
+});
+Check("update zip accepted", zipAsset?.Name == "island-0.1.0.zip", zipAsset?.Name ?? "null");
+
 Console.WriteLine(failures == 0 ? "ALL PASS" : failures + " FAILURES");
 return failures == 0 ? 0 : 1;
