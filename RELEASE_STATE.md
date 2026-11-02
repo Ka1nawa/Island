@@ -8,8 +8,8 @@
 
 ## Версия и артефакты
 - Версия 0.1.2 (csproj, FileVersion 0.1.2.0).
-- Island-framework-0.1.2.exe — 990a912292ac44fc1c722a9cc2f014d753f6ae22c814e69c2d9257c7f41197c0
-- Island-selfcontained-0.1.2.exe — b166fe2879216223d3a867343a6306485948e48af8d4657db174aca506aaae16
+- Island-framework-0.1.2.exe — 134500c9e4819b5378ee12cf8cd8a8a3bad4b466acb1d2f44ff56a6f57b93aec
+- Island-selfcontained-0.1.2.exe — 0ce7337c9cbd48a115341731e3da179736d22d18560607d60ca6d0eb53ca48e1
 - Архивов нет: публикуются два exe.
 
 ## GitHub
