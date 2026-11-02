@@ -76,6 +76,9 @@ The close button unpins it. Positions are stored in settings and restored on the
 | Monitor | Primary display, display under the cursor, or a specific monitor |
 | Background density | Glass tint opacity |
 | Live glass | Blur the real desktop content behind the panel |
+| Show in screen capture | Disables live glass so OBS, Discord and screenshots see the island |
+| Hide in fullscreen apps | Hides the island in games and fullscreen video |
+| Check for updates automatically | Checks at startup and every 6 hours; downloads with SHA-256, installs on confirmation |
 | Accent from artwork | Tint the glass and equalizer with the album colour |
 | Animation speed | 0.5×–2× |
 | Reduce motion | Short animations |
@@ -126,7 +129,7 @@ Calendar events show an informational toast 15 minutes before the start.
 
 ## Weather
 
-Open-Meteo is used for geocoding and forecast (no API key). The 5-day row shows max/min and precipitation
+Open-Meteo is used for geocoding and forecast (no API key); if the forecast host is unreachable, Island falls back to MET Norway. The 5-day row shows max/min and precipitation
 probability. A warning chip appears for thunderstorms, strong wind (40+ km/h) or heavy rain.
 Use the arrows next to the city name to switch between saved cities.
 

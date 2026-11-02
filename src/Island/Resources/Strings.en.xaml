@@ -225,4 +225,11 @@
   <sys:String x:Key="SoundSystem">System</sys:String>
   <sys:String x:Key="TrayOpen">Open island</sys:String>
   <sys:String x:Key="TrayExit">Quit</sys:String>
+  <sys:String x:Key="ShowInCapture">Show in screen capture</sys:String>
+  <sys:String x:Key="ShowInCaptureHint">Turns off live glass so OBS, Discord and screenshots can see the window</sys:String>
+  <sys:String x:Key="HideFullscreen">Hide in fullscreen apps</sys:String>
+  <sys:String x:Key="HideFullscreenHint">Removes the island in games and fullscreen video</sys:String>
+  <sys:String x:Key="AutoUpdate">Check for updates automatically</sys:String>
+  <sys:String x:Key="AutoUpdateHint">At startup and every 6 hours; installation only after confirmation</sys:String>
+  <sys:String x:Key="UpdateReady">Update {0} downloaded — install from the menu</sys:String>
 </ResourceDictionary>

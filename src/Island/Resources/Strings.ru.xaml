@@ -225,4 +225,11 @@
   <sys:String x:Key="SoundSystem">Системный</sys:String>
   <sys:String x:Key="TrayOpen">Открыть островок</sys:String>
   <sys:String x:Key="TrayExit">Выход</sys:String>
+  <sys:String x:Key="ShowInCapture">Показывать в записи экрана</sys:String>
+  <sys:String x:Key="ShowInCaptureHint">Отключает живое стекло, чтобы окно было видно в OBS, Discord и на скриншотах</sys:String>
+  <sys:String x:Key="HideFullscreen">Скрывать в полноэкранных приложениях</sys:String>
+  <sys:String x:Key="HideFullscreenHint">Убирает островок в играх и при полноэкранном видео</sys:String>
+  <sys:String x:Key="AutoUpdate">Проверять обновления автоматически</sys:String>
+  <sys:String x:Key="AutoUpdateHint">При запуске и раз в 6 часов; установка — только по подтверждению</sys:String>
+  <sys:String x:Key="UpdateReady">Обновление {0} скачано — установить из меню</sys:String>
 </ResourceDictionary>

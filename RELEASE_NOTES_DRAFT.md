@@ -14,11 +14,19 @@
 - Вкладка «Система»: CPU/GPU/RAM.
 - Обновления GitHub с проверкой SHA-256 и подтверждением.
 
+- Настройка «Показывать в записи экрана» (OBS/Discord/скриншоты).
+- Настройка «Скрывать в полноэкранных приложениях».
+- Автопроверка обновлений и автоскачивание с проверкой SHA-256.
+
 ## Changed
 - Фиксированный размер окна и один цикл анимации.
 - Атомарное сохранение настроек, ротация логов.
 
 ## Fixed
+- Погода: fallback на MET Norway, когда Open-Meteo forecast недоступен.
+- Пустые белые тултипы без текста.
+- Квадратные иконки приложений и обложка плеера — скруглены.
+
 - Перекрытие панели задач при автоскрытии.
 - Потеря настроек при сбое записи.
 - Падение при старте из-за конфликта ключа ресурса «Accent».
@@ -31,10 +39,10 @@
 
 | File | SHA-256 |
 | --- | --- |
-| Island-0.1.0-win-x64-framework.zip | 34e07103dd2cb3d3d4f16467c41add5cdda4d76963275012f5cf9585fa4ddead |
-| Island-0.1.0-win-x64-selfcontained.zip | ca47b3be39bc4258b71133ecf6b813af452db9cdeb0e3a34abf44ac1c70f4a45 |
-| Island-0.1.0-win-x64-framework.exe | 5a548ccc34867adc1e6dd2c6399fe69b36e9044d028626b0a350979c314e75ad |
-| Island-0.1.0-win-x64-selfcontained.exe | e189f0ca4466f2a9c170c5f3f4dac96bbb824197f20d4a64efd574cb67d45fb0 |
+| Island-0.1.0-win-x64-framework.zip | faae176e1865f4cb8ac18720ec93bab36da30f7d0d727f9e7e6fd8053bdba3bf |
+| Island-0.1.0-win-x64-selfcontained.zip | 90ab6179a049b356698027dcc3d1db3f82e883465fc72f18459bede540178de3 |
+| Island-0.1.0-win-x64-framework.exe | 8ebacaec59e46cf7cbbbb08bf84845355f258347abdbfbaf45ede5a24ae213f5 |
+| Island-0.1.0-win-x64-selfcontained.exe | 5f5423d8c69ceee3187281484ec42e839baef86cfd86a9f2379f1255166b15ee |
 
 Requirements: Windows 10 2004+ / Windows 11, x64. The framework-dependent build needs the .NET 10 Desktop
 Runtime; the self-contained build needs nothing. Binaries are unsigned.

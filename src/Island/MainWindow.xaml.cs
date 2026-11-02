@@ -94,6 +94,11 @@ public partial class MainWindow : Window
     private DispatcherTimer? _displayTimer;
     private DispatcherTimer? _liveGlassTimer;
     private bool _liveGlassActive;
+    private bool _hiddenForFullscreen;
+    private bool _updateCheckRunning;
+    private DateTime _lastUpdateCheck = DateTime.MinValue;
+    private UpdateInfo? _pendingUpdate;
+    private string _pendingUpdateFile = "";
     private DisplayMonitor _monitor = DisplayService.GetPrimary();
 
     private bool _expanded;
@@ -192,7 +197,7 @@ public partial class MainWindow : Window
         _hwndSource = HwndSource.FromHwnd(handle);
         _hwndSource?.AddHook(WndProc);
 
-        LiveGlassService.SetExcluded(handle, _settings.LiveGlass);
+        LiveGlassService.SetExcluded(handle, _settings.LiveGlass && !_settings.ShowInCapture);
 
         _hotkeyRegistered = RegisterHotKey(handle, HotkeyId, ModControl | ModAlt, VkSpace);
 
@@ -260,6 +265,12 @@ public partial class MainWindow : Window
         _ = RefreshCalendarAsync();
 
         foreach (var note in _settings.Notes.Where(n => n.Pinned).ToList()) ShowSticky(note);
+
+        if (_settings.AutoCheckUpdates)
+        {
+            _lastUpdateCheck = DateTime.Now;
+            _ = AutoCheckUpdatesAsync();
+        }
     }
 
     private void OnClosing(object? sender, System.ComponentModel.CancelEventArgs e)
@@ -336,6 +347,9 @@ public partial class MainWindow : Window
         if (_expanded && _tick % 8 == 0) RefreshAudio();
         if (_expanded && _tick % 120 == 0) UpdateWeatherIfStale();
         if (_tick % 4 == 0) UpdateMeetingHint();
+        if (_tick % 4 == 0) UpdateFullscreenState();
+        if (_settings.AutoCheckUpdates && !_updateCheckRunning &&
+            DateTime.Now - _lastUpdateCheck > TimeSpan.FromHours(6)) _ = AutoCheckUpdatesAsync();
         if (_expanded && _vm.SelectedTab == 4 && _tick % 4 == 0) _vm.System.Update();
         if (_tick % 3600 == 0) _ = RefreshCalendarAsync();
     }
@@ -503,7 +517,7 @@ public partial class MainWindow : Window
         _ = RefreshMediaAsync();
         UpdateSpectrum();
 
-        if (_settings.LiveGlass) StartLiveGlass();
+        if (_settings.LiveGlass && !_settings.ShowInCapture) StartLiveGlass();
 
         if (activate) Activate();
     }
@@ -684,6 +698,7 @@ public partial class MainWindow : Window
     private void StartLiveGlass()
     {
         if (_liveGlassActive) return;
+        if (_settings.ShowInCapture) return;
         if (OnBattery()) return;
         _liveGlassActive = true;
         _liveGlassTimer!.Start();
@@ -702,12 +717,42 @@ public partial class MainWindow : Window
         UpdateGlass();
     }
 
+    private void UpdateFullscreenState()
+    {
+        if (!_settings.HideInFullscreen)
+        {
+            if (_hiddenForFullscreen) RestoreFromFullscreen();
+            return;
+        }
+
+        var fullscreen = FullscreenWatcher.IsFullscreen();
+        if (fullscreen && !_hiddenForFullscreen)
+        {
+            _hiddenForFullscreen = true;
+            Collapse();
+            Topmost = false;
+            Hide();
+        }
+        else if (!fullscreen && _hiddenForFullscreen)
+        {
+            RestoreFromFullscreen();
+        }
+    }
+
+    private void RestoreFromFullscreen()
+    {
+        _hiddenForFullscreen = false;
+        Show();
+        Topmost = true;
+        ApplyDock();
+    }
+
     private void OnLiveGlassChanged()
     {
         var handle = new WindowInteropHelper(this).Handle;
-        LiveGlassService.SetExcluded(handle, _settings.LiveGlass);
+        LiveGlassService.SetExcluded(handle, _settings.LiveGlass && !_settings.ShowInCapture);
 
-        if (_settings.LiveGlass && _expanded)
+        if (_settings.LiveGlass && !_settings.ShowInCapture && _expanded)
         {
             StartLiveGlass();
             return;
@@ -719,7 +764,7 @@ public partial class MainWindow : Window
 
     private void OnLiveGlassTick(object? sender, EventArgs e)
     {
-        if (!_expanded || !_settings.LiveGlass) return;
+        if (!_expanded || !_settings.LiveGlass || _settings.ShowInCapture) return;
         if (OnBattery())
         {
             StopLiveGlass();
@@ -1054,12 +1099,71 @@ public partial class MainWindow : Window
         if (_expanded) Collapse();
     }
 
+    private async Task AutoCheckUpdatesAsync()
+    {
+        if (_updateCheckRunning || string.IsNullOrWhiteSpace(_settings.UpdateRepo)) return;
+
+        _updateCheckRunning = true;
+        _lastUpdateCheck = DateTime.Now;
+        try
+        {
+            var current = Assembly.GetExecutingAssembly().GetName().Version ?? new Version(0, 0, 1);
+            var info = await UpdateService.CheckAsync(_settings.UpdateRepo, current);
+            if (!info.Ok || !info.Newer) return;
+            if (string.Equals(info.Tag, _settings.LastNotifiedUpdate, StringComparison.OrdinalIgnoreCase)) return;
+
+            _settings.LastNotifiedUpdate = info.Tag;
+            SettingsStore.Save(_settings);
+
+            var asset = UpdateService.PickAsset(info);
+            if (asset is not null && !string.IsNullOrWhiteSpace(info.Sha256))
+            {
+                var destination = System.IO.Path.Combine(System.IO.Path.GetTempPath(), asset.Name);
+                var (ok, file, _) = await UpdateService.DownloadAsync(asset, destination, info.Sha256, default);
+                if (ok)
+                {
+                    _pendingUpdate = info;
+                    _pendingUpdateFile = file;
+                    ShowInfoToast(L.T("MenuUpdate"), L.F("UpdateReady", info.Tag), "\uE895", Color.FromRgb(0x4F, 0xA8, 0xFF));
+                    return;
+                }
+            }
+
+            ShowInfoToast(L.T("MenuUpdate"), L.F("UpdateAvailable", info.Tag), "\uE895", Color.FromRgb(0x4F, 0xA8, 0xFF));
+        }
+        catch
+        {
+            // silent: background check must never disturb the user
+        }
+        finally
+        {
+            _updateCheckRunning = false;
+        }
+    }
+
     private bool _updating;
 
     private async void MenuUpdate_Click(object sender, RoutedEventArgs e)
     {
         MenuPopup.IsOpen = false;
         if (_updating) return;
+
+        if (_pendingUpdate is not null && !string.IsNullOrWhiteSpace(_pendingUpdateFile) &&
+            System.IO.File.Exists(_pendingUpdateFile))
+        {
+            var file = System.IO.Path.GetFileName(_pendingUpdateFile);
+            var prompt = MessageBox.Show(this, L.F("UpdateRun", file), L.T("MenuUpdate"),
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (prompt == MessageBoxResult.Yes)
+            {
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(_pendingUpdateFile)
+                {
+                    UseShellExecute = true
+                });
+                Close();
+            }
+            return;
+        }
 
         if (string.IsNullOrWhiteSpace(_settings.UpdateRepo))
         {

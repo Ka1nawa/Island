@@ -13,4 +13,24 @@
   <SolidColorBrush x:Key="OverlaySolid" Color="#DE0A0A10" />
   <SolidColorBrush x:Key="MenuSolid" Color="#FF141419" />
   <SolidColorBrush x:Key="MenuText" Color="#EAEAEF" />
+
+  <Style TargetType="ToolTip">
+    <Setter Property="Background" Value="{DynamicResource MenuSolid}" />
+    <Setter Property="Foreground" Value="{DynamicResource TextPrimary}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource BorderSoft}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="9,5" />
+    <Setter Property="FontSize" Value="10.5" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="ToolTip">
+          <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                  BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8"
+                  Padding="{TemplateBinding Padding}">
+            <ContentPresenter />
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
 </ResourceDictionary>

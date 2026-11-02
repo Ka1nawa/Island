@@ -10,6 +10,8 @@ Island is a lightweight WPF desktop widget for people who want their daily conte
 ## Features
 
 - **Live glass** — the panel blurs the real desktop content behind it; falls back to the wallpaper when capture is unavailable.
+- **Visible in captures** — a setting turns live glass off so OBS, Discord and screenshots can see the island.
+- **Steps aside in fullscreen** — hides automatically in games and fullscreen video.
 - **Multi-monitor aware** — primary display, display under the cursor or a specific monitor; never overlaps the taskbar (including auto-hide).
 - **Quick actions** — `Ctrl+Alt+Space` opens a command bar: type a note, a reminder ("in 20 minutes", "on Wednesday at 15:00") or a timer ("timer 25").
 - **Reminders in natural language** (Russian and English), with presets and a preview of the parsed schedule.
@@ -20,7 +22,7 @@ Island is a lightweight WPF desktop widget for people who want their daily conte
 - **Music** — Windows media sessions (SMTC), lyrics from LRCLIB, output device switching and volume presets.
 - **Themes** — dark, light or system; accent colour from album art; animation speed and reduce motion.
 - **System tab** — CPU, GPU and RAM usage from Windows performance counters.
-- **Tray and autostart**, plus a GitHub update check with SHA-256 verification.
+- **Tray and autostart**, plus automatic update checks (download verified with SHA-256, install on confirmation).
 
 ![Media page](shots/final_media.png)
 ![Weather page](shots/final_weather.png)

@@ -22,6 +22,9 @@ public sealed class AppSettings
     public double Density { get; set; } = 62;
     public bool VisualizerEnabled { get; set; } = true;
     public bool LiveGlass { get; set; } = true;
+    public bool ShowInCapture { get; set; }
+    public bool HideInFullscreen { get; set; } = true;
+    public bool AutoCheckUpdates { get; set; } = true;
     public bool ReduceMotion { get; set; }
     public double AnimationSpeed { get; set; } = 1.0;
     public bool AccentFromArtwork { get; set; } = true;
@@ -32,6 +35,7 @@ public sealed class AppSettings
     public string QuietFrom { get; set; } = "23:00";
     public string QuietTo { get; set; } = "08:00";
     public string UpdateRepo { get; set; } = "";
+    public string LastNotifiedUpdate { get; set; } = "";
     public string CalendarUrl { get; set; } = "";
     public string NotesSyncFolder { get; set; } = "";
     public string CalendarFetchedAt { get; set; } = "";

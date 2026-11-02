@@ -33,6 +33,8 @@ report the monitor/taskbar geometry.
 - If the glass is enabled, the island is excluded from screenshots and screen recordings
   (`WDA_EXCLUDEFROMCAPTURE`) — that is expected.
 - Toggle **Live glass** off and on to force a re-initialization.
+- Need the island in OBS/Discord? Enable **Show in screen capture** — live glass turns off and the
+  wallpaper glass is used instead.
 
 ## Hotkey does not work
 
@@ -53,7 +55,8 @@ report the monitor/taskbar geometry.
 
 ## Weather does not load
 
-- The app needs internet access to Open-Meteo; a cached forecast is shown when offline.
+- The app uses Open-Meteo and falls back to MET Norway when the forecast host is unreachable;
+  a cached forecast is shown when offline.
 - Check `error.log` for HTTP errors; corporate proxies may block the request.
 - Use the refresh button or reopen the weather tab.
 

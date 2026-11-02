@@ -171,10 +171,10 @@
 - Smoke-тест framework-dependent: процесс запустился и работал 5 с, аварийного завершения нет.
 
 ### Артефакты и SHA-256
-- Island-0.1.0-win-x64-framework.exe — 5a548ccc34867adc1e6dd2c6399fe69b36e9044d028626b0a350979c314e75ad
-- Island-0.1.0-win-x64-framework.zip — 34e07103dd2cb3d3d4f16467c41add5cdda4d76963275012f5cf9585fa4ddead
-- Island-0.1.0-win-x64-selfcontained.exe — e189f0ca4466f2a9c170c5f3f4dac96bbb824197f20d4a64efd574cb67d45fb0
-- Island-0.1.0-win-x64-selfcontained.zip — ca47b3be39bc4258b71133ecf6b813af452db9cdeb0e3a34abf44ac1c70f4a45
+- Island-0.1.0-win-x64-framework.exe — 8ebacaec59e46cf7cbbbb08bf84845355f258347abdbfbaf45ede5a24ae213f5
+- Island-0.1.0-win-x64-framework.zip — faae176e1865f4cb8ac18720ec93bab36da30f7d0d727f9e7e6fd8053bdba3bf
+- Island-0.1.0-win-x64-selfcontained.exe — 5f5423d8c69ceee3187281484ec42e839baef86cfd86a9f2379f1255166b15ee
+- Island-0.1.0-win-x64-selfcontained.zip — 90ab6179a049b356698027dcc3d1db3f82e883465fc72f18459bede540178de3
 
 ### Безопасность
 - Path traversal в имени ассета обновления устранён (Path.GetFileName + whitelist расширений).
@@ -213,3 +213,44 @@
 ### Не проверено
 - CI workflow не запускался на GitHub runner (локально проверено содержимое и команды).
 - Windows-тосты вне песочницы, DPI 125/150%, подпись артефактов.
+
+
+## Исправления после ревью (0.1.0)
+
+### Погода (критично)
+- Причина: api.open-meteo.com недоступен с сети (таймаут), геокодинг работал.
+- Добавлен fallback на MET Norway (api.met.no/weatherapi/locationforecast/2.0/compact).
+- Проверено вживую: Москва — 5°, «Переменная облачность», ветер 5 км/ч, влажность 79%,
+  8 часов и 5 дней (s_weather_fallback.png); live-тест 5C days=6 hours=8. PASS.
+
+### Видимость в захвате
+- Настройка «Показывать в записи экрана»: WDA отключается, стекло — обои.
+- Проверено: при LiveGlass=true и ShowInCapture=true окно видно на скриншоте (s_capture_visible.png). PASS.
+
+### Тултипы
+- Причина: белый фон по умолчанию + белый Foreground → пустой прямоугольник.
+- Добавлен стиль ToolTip (MenuSolid, скругление, отступы) в обе темы.
+- Проверено: тёмная карточка с текстом «Настройки» (s_tooltip2.png). PASS.
+
+### Иконки аудио
+- Image заменён на Border с ImageBrush и CornerRadius=6; обложка плеера — CornerRadius=22.
+- Визуально не проверено: в тестовой сессии нет активных аудио-приложений.
+
+### Полноэкранный режим
+- Настройка «Скрывать в полноэкранных приложениях» (по умолчанию включена),
+  определение через SHQueryUserNotificationState (D3D fullscreen / presentation).
+- Вживую не проверено: нет полноэкранного приложения в тестовой сессии.
+
+### Автообновление
+- Автопроверка при старте и раз в 6 часов, автоскачивание с проверкой SHA-256,
+  тост «Обновление X скачано», установка из меню по подтверждению.
+- Сетевая проверка не выполнялась (нужен настроенный репозиторий с релизом).
+
+### Тесты
+- 49/49 PASS; live-тест погоды (ISLAND_LIVE_TESTS=1) — PASS.
+
+### Артефакты (пересобраны после исправлений)
+- Island-0.1.0-win-x64-framework.exe — 8ebacaec59e46cf7cbbbb08bf84845355f258347abdbfbaf45ede5a24ae213f5
+- Island-0.1.0-win-x64-framework.zip — faae176e1865f4cb8ac18720ec93bab36da30f7d0d727f9e7e6fd8053bdba3bf
+- Island-0.1.0-win-x64-selfcontained.exe — 5f5423d8c69ceee3187281484ec42e839baef86cfd86a9f2379f1255166b15ee
+- Island-0.1.0-win-x64-selfcontained.zip — 90ab6179a049b356698027dcc3d1db3f82e883465fc72f18459bede540178de3

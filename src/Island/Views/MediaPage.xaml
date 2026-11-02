@@ -58,8 +58,13 @@
 
           <Border Width="104" Height="104" CornerRadius="22" Background="{DynamicResource SurfaceSoft}" ClipToBounds="True">
             <Grid>
-              <Image Source="{Binding Media.Artwork}" Stretch="UniformToFill"
-                     RenderOptions.BitmapScalingMode="HighQuality" />
+              <Border CornerRadius="22"
+                      RenderOptions.BitmapScalingMode="HighQuality"
+                      Visibility="{Binding Media.HasArtwork, Converter={StaticResource BoolToVisibility}}">
+                <Border.Background>
+                  <ImageBrush ImageSource="{Binding Media.Artwork}" Stretch="UniformToFill" />
+                </Border.Background>
+              </Border>
               <TextBlock Text="&#x266B;" FontSize="34" Foreground="#3C3C45"
                          HorizontalAlignment="Center" VerticalAlignment="Center"
                          Visibility="{Binding Media.HasArtwork, Converter={StaticResource InverseBoolToVisibility}}" />

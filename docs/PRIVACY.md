@@ -20,7 +20,8 @@ Set `ISLAND_DATA_DIR` to store everything in another folder. Delete the folder t
 | Destination | When | Data sent |
 | --- | --- | --- |
 | `geocoding-api.open-meteo.com` | City search | Search text |
-| `api.open-meteo.com` | Weather refresh | City coordinates |
+| `api.open-meteo.com` | Weather refresh (primary) | City coordinates |
+| `api.met.no` | Weather fallback when Open-Meteo is unreachable | City coordinates |
 | `lrclib.net` | Lyrics toggle / track change | Artist, title, duration |
 | Your ICS URL | Startup, every 15 minutes | Nothing (GET of your subscription) |
 | `api.github.com` / GitHub release assets | Manual update check | Repository name, user agent |

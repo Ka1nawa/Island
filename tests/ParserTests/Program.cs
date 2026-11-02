@@ -228,5 +228,21 @@ var zipAsset = UpdateService.PickAsset(new UpdateInfo
 });
 Check("update zip accepted", zipAsset?.Name == "island-0.1.0.zip", zipAsset?.Name ?? "null");
 
+if (Environment.GetEnvironmentVariable("ISLAND_LIVE_TESTS") == "1")
+{
+    try
+    {
+        var live = new WeatherService().GetAsync(
+            new City { Name = "Moscow", Latitude = 55.75, Longitude = 37.61 },
+            System.Threading.CancellationToken.None).GetAwaiter().GetResult();
+        Check("weather live (fallback ok)", live.Days.Count > 0 && live.Hours.Count > 0,
+            live.Temperature + "C days=" + live.Days.Count + " hours=" + live.Hours.Count);
+    }
+    catch (Exception ex)
+    {
+        Check("weather live (fallback ok)", false, ex.GetType().Name + ": " + ex.Message);
+    }
+}
+
 Console.WriteLine(failures == 0 ? "ALL PASS" : failures + " FAILURES");
 return failures == 0 ? 0 : 1;

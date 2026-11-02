@@ -177,6 +177,30 @@
       <Border Background="{DynamicResource SurfaceSoft}" CornerRadius="13" Padding="12,6" Margin="0,8,0,0">
         <Grid>
           <StackPanel>
+            <TextBlock Text="{DynamicResource ShowInCapture}" FontSize="12" />
+            <TextBlock Text="{DynamicResource ShowInCaptureHint}" FontSize="9" Foreground="{StaticResource TextTertiary}"
+                       Margin="0,1,0,0" TextWrapping="Wrap" MaxWidth="270" />
+          </StackPanel>
+          <CheckBox Style="{StaticResource Switch}" HorizontalAlignment="Right" VerticalAlignment="Center"
+                    IsChecked="{Binding Settings.ShowInCapture, Mode=TwoWay}" />
+        </Grid>
+      </Border>
+
+      <Border Background="{DynamicResource SurfaceSoft}" CornerRadius="13" Padding="12,6" Margin="0,8,0,0">
+        <Grid>
+          <StackPanel>
+            <TextBlock Text="{DynamicResource HideFullscreen}" FontSize="12" />
+            <TextBlock Text="{DynamicResource HideFullscreenHint}" FontSize="9" Foreground="{StaticResource TextTertiary}"
+                       Margin="0,1,0,0" TextWrapping="Wrap" MaxWidth="270" />
+          </StackPanel>
+          <CheckBox Style="{StaticResource Switch}" HorizontalAlignment="Right" VerticalAlignment="Center"
+                    IsChecked="{Binding Settings.HideInFullscreen, Mode=TwoWay}" />
+        </Grid>
+      </Border>
+
+      <Border Background="{DynamicResource SurfaceSoft}" CornerRadius="13" Padding="12,6" Margin="0,8,0,0">
+        <Grid>
+          <StackPanel>
             <TextBlock Text="{DynamicResource ReduceMotion}" FontSize="12" />
             <TextBlock Text="{DynamicResource ReduceMotionHint}" FontSize="9" Foreground="{StaticResource TextTertiary}"
                        Margin="0,1,0,0" TextWrapping="Wrap" MaxWidth="270" />
@@ -255,6 +279,18 @@
       <TextBox Style="{StaticResource FieldBox}" Height="28" FontSize="11" Margin="0,4,0,0"
                Text="{Binding Settings.UpdateRepo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                ToolTip="{DynamicResource UpdateRepoHint}" />
+
+      <Border Background="{DynamicResource SurfaceSoft}" CornerRadius="13" Padding="12,6" Margin="0,8,0,0">
+        <Grid>
+          <StackPanel>
+            <TextBlock Text="{DynamicResource AutoUpdate}" FontSize="12" />
+            <TextBlock Text="{DynamicResource AutoUpdateHint}" FontSize="9" Foreground="{StaticResource TextTertiary}"
+                       Margin="0,1,0,0" TextWrapping="Wrap" MaxWidth="270" />
+          </StackPanel>
+          <CheckBox Style="{StaticResource Switch}" HorizontalAlignment="Right" VerticalAlignment="Center"
+                    IsChecked="{Binding Settings.AutoCheckUpdates, Mode=TwoWay}" />
+        </Grid>
+      </Border>
 
       <Button Style="{StaticResource RowButton}" Margin="0,10,0,8" Click="About_Click" AutomationProperties.Name="{DynamicResource AboutRow}">
         <Grid>
