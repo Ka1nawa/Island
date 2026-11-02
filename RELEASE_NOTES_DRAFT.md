@@ -39,10 +39,10 @@
 
 | File | SHA-256 |
 | --- | --- |
-| Island-0.1.0-win-x64-framework.zip | faae176e1865f4cb8ac18720ec93bab36da30f7d0d727f9e7e6fd8053bdba3bf |
-| Island-0.1.0-win-x64-selfcontained.zip | 90ab6179a049b356698027dcc3d1db3f82e883465fc72f18459bede540178de3 |
-| Island-0.1.0-win-x64-framework.exe | 8ebacaec59e46cf7cbbbb08bf84845355f258347abdbfbaf45ede5a24ae213f5 |
-| Island-0.1.0-win-x64-selfcontained.exe | 5f5423d8c69ceee3187281484ec42e839baef86cfd86a9f2379f1255166b15ee |
+| Island-0.1.0-win-x64-framework.zip | cd9cf8997a99116396c7ebfeb71816697acd7f5a1db34a1cb7d7e6a3ff6f8803 |
+| Island-0.1.0-win-x64-selfcontained.zip | f8e94c892628ee288f6f573263ab6c9dfc448d003051d35f9084a8dccf502c68 |
+| Island-0.1.0-win-x64-framework.exe | ba2bc4e7ee9cc88be30294687f4df86ddb13e25021915d19e54128a94df5c6c1 |
+| Island-0.1.0-win-x64-selfcontained.exe | 77558518fcb6007a3686fe4f4971fb0401905a67ea13896f23a398ab2cfbcb02 |
 
 Requirements: Windows 10 2004+ / Windows 11, x64. The framework-dependent build needs the .NET 10 Desktop
 Runtime; the self-contained build needs nothing. Binaries are unsigned.

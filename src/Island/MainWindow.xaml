@@ -85,7 +85,11 @@
                     HorizontalAlignment="Center" VerticalAlignment="Center"
                     Visibility="{Binding Media.HasMedia, Converter={StaticResource BoolToVisibility}}">
               <Grid>
-                <Image Source="{Binding Media.Artwork}" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="HighQuality" />
+                <Border CornerRadius="9" RenderOptions.BitmapScalingMode="HighQuality">
+                  <Border.Background>
+                    <ImageBrush ImageSource="{Binding Media.Artwork}" Stretch="UniformToFill" />
+                  </Border.Background>
+                </Border>
                 <TextBlock Text="&#x266B;" FontSize="13" Foreground="#6C6C76" HorizontalAlignment="Center" VerticalAlignment="Center"
                            Visibility="{Binding Media.HasArtwork, Converter={StaticResource InverseBoolToVisibility}}" />
               </Grid>
