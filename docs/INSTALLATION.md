@@ -13,7 +13,7 @@
 
 | | Framework-dependent | Self-contained |
 | --- | --- | --- |
-| Archive size | ~7 MB | ~73 MB |
+| File size | ~26 MB | ~181 MB |
 | Required runtime | .NET 10 **Desktop** Runtime (x64) | None |
 | Best for | machines that already have .NET 10 | clean machines, portable use |
 | Update size | smaller | larger |
@@ -24,11 +24,11 @@ Both archives contain a single `Island.exe` (single-file publish). The self-cont
 ## Install from a release artifact
 
 1. Download one of:
-   - `Island-0.1.0-win-x64-selfcontained.zip` — recommended, no runtime required (~73 MB);
-   - `Island-0.1.0-win-x64-framework.zip` — smaller (~7 MB), requires the .NET 10 Desktop Runtime.
+   - `Island-selfcontained-0.1.2.exe` — recommended, no runtime required (~181 MB);
+   - `Island-framework-0.1.2.exe` — smaller (~26 MB), requires the .NET 10 Desktop Runtime.
 2. Verify the SHA-256 from the release notes if provided.
-3. Extract the archive to a folder of your choice, for example `%LOCALAPPDATA%\\Programs\\Island`.
-4. Run `Island.exe`. The island appears at the top centre of the primary display.
+3. Put the file in a folder of your choice, for example `%LOCALAPPDATA%\\Programs\\Island`.
+4. Run the downloaded `.exe`. The island appears at the top centre of the primary display.
 5. Optionally enable **Autostart** in settings or the tray menu.
 
 The binaries are not code-signed. Windows SmartScreen may show a warning; choose "More info" → "Run anyway"
@@ -75,7 +75,7 @@ the file is verified before the installer is offered.
 
 1. Disable autostart (tray menu or settings).
 2. Exit Island from the tray.
-3. Delete the application folder.
+3. Delete the downloaded .exe.
 4. Optionally delete `%APPDATA%\\Island` to remove all settings, notes and caches.
 
 ## License

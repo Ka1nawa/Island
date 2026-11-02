@@ -30,16 +30,16 @@ Island is a lightweight WPF desktop widget for people who want their daily conte
 
 ## Status
 
-- Version **0.1.0** (pre-1.0). The feature set is complete for a first public release.
+- Version **0.1.2** (pre-1.0). The feature set is complete for a first public release.
 - Platform: **Windows 10 2004+ / Windows 11, x64**.
 - Built with **.NET 10** and **WPF**; single runtime dependency: **NAudio 2.2.1** (MIT).
 - The release binaries are **not code-signed**; Windows SmartScreen may warn on first launch.
 
 ## Install
 
-1. Download `Island-0.1.0-win-x64-selfcontained.zip` (no runtime required) or
-   `Island-0.1.0-win-x64-framework.zip` (requires the .NET 10 Desktop Runtime) from the release page.
-2. Extract the archive and run `Island.exe`.
+1. Download `Island-selfcontained-0.1.2.exe` (no runtime required) or
+   `Island-framework-0.1.2.exe` (requires the .NET 10 Desktop Runtime) from the release page.
+2. Run the downloaded `.exe` — no unpacking needed.
 3. Hover the pill to expand it. Use the tray icon to open settings, enable autostart or exit.
 
 Detailed steps: [docs/INSTALLATION.md](docs/INSTALLATION.md).

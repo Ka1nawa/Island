@@ -1,4 +1,4 @@
-# Release Checklist — Island 0.1.0
+# Release Checklist — Island 0.1.2
 
 ## Репозиторий
 - [x] Git-репозиторий инициализирован в island/ (посторонний winops не включён)
@@ -12,8 +12,8 @@
 - [x] dotnet build src/Island/Island.csproj — 0 ошибок, 0 предупреждений
 - [x] dotnet run --project tests/ParserTests — 44/44 PASS
 - [x] dotnet list package --vulnerable --include-transitive — уязвимых пакетов нет
-- [x] Версия 0.1.0 в csproj
-- [x] Release-сборка: framework-dependent и self-contained, SHA-256 в TEST_REPORT
+- [x] Версия 0.1.2 в csproj (FileVersion 0.1.2.0)
+- [x] Release-сборка: два exe без архивов (Island-framework-0.1.2.exe, Island-selfcontained-0.1.2.exe)
 - [x] Целевые тесты обновлятора (traversal, подозрительные имена, пустое имя) — 49/49 PASS
 
 ## Приложение

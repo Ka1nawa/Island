@@ -1,4 +1,4 @@
-# Island 0.1.0 — Draft release notes
+# Island 0.1.2 — Draft release notes
 
 ## Added
 - Живое стекло с захватом реального содержимого и fallback на обои.
@@ -12,6 +12,8 @@
 - Музыка: текст песни (LRCLIB), устройства вывода, пресеты громкости.
 - Темы: тёмная/светлая/системная, акцент из обложки, reduce motion.
 - Вкладка «Система»: CPU/GPU/RAM.
+- «Показывать в записи экрана» и «Скрывать в полноэкранных приложениях».
+- Автопроверка обновлений и автоскачивание с проверкой SHA-256.
 - Обновления GitHub с проверкой SHA-256 и подтверждением.
 
 - Настройка «Показывать в записи экрана» (OBS/Discord/скриншоты).
@@ -39,13 +41,12 @@
 
 | File | SHA-256 |
 | --- | --- |
-| Island-0.1.0-win-x64-framework.zip | cd9cf8997a99116396c7ebfeb71816697acd7f5a1db34a1cb7d7e6a3ff6f8803 |
-| Island-0.1.0-win-x64-selfcontained.zip | f8e94c892628ee288f6f573263ab6c9dfc448d003051d35f9084a8dccf502c68 |
-| Island-0.1.0-win-x64-framework.exe | ba2bc4e7ee9cc88be30294687f4df86ddb13e25021915d19e54128a94df5c6c1 |
-| Island-0.1.0-win-x64-selfcontained.exe | 77558518fcb6007a3686fe4f4971fb0401905a67ea13896f23a398ab2cfbcb02 |
+| Island-framework-0.1.2.exe | 990a912292ac44fc1c722a9cc2f014d753f6ae22c814e69c2d9257c7f41197c0 |
+| Island-selfcontained-0.1.2.exe | b166fe2879216223d3a867343a6306485948e48af8d4657db174aca506aaae16 |
 
-Requirements: Windows 10 2004+ / Windows 11, x64. The framework-dependent build needs the .NET 10 Desktop
-Runtime; the self-contained build needs nothing. Binaries are unsigned.
+No archives: download the .exe and run it. Requirements: Windows 10 2004+ / Windows 11, x64.
+The framework build needs the .NET 10 Desktop Runtime; the self-contained build needs nothing.
+Binaries are unsigned.
 
 ## Known Issues
 - Нет действий в системных тостах (кнопки — в кастомном тосте).
